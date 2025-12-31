@@ -1,0 +1,61 @@
+{
+  "default_server_config": {
+    "m.homeserver": {
+      "base_url": "https://messenger.statex.cz"
+    },
+    "m.identity_server": {
+      "base_url": "https://vector.im"
+    }
+  },
+  "default_server_name": "messenger.statex.cz",
+  "livekit": {
+    "livekit_service_url": "https://messenger.statex.cz"
+  },
+  "brand": "Element X",
+  "integrations_ui_url": "https://scalar.vector.im/",
+  "integrations_rest_url": "https://scalar.vector.im/api",
+  "integrations_widgets_urls": [
+    "https://scalar.vector.im/_matrix/integrations/v1",
+    "https://scalar.vector.im/_matrix/integrations/v2"
+  ],
+  "bug_report_endpoint_url": "https://element.io/bugreports/submit",
+  "defaultCountryCode": "US",
+  "showLabsSettings": false,
+  "features": {
+    "feature_new_spinner": true,
+    "feature_pinning": true,
+    "feature_custom_status": true,
+    "feature_custom_tags": true,
+    "feature_state_counters": true
+  },
+  "default_federate": true,
+  "default_theme": "light",
+  "roomDirectory": {
+    "servers": [
+      "matrix.org"
+    ]
+  },
+  "welcomeUserId": "@riot-bot:matrix.org",
+  "piwik": {
+    "url": "https://piwik.riot.im/",
+    "whitelistedHSUrls": ["https://matrix.org"],
+    "whitelistedHSUrls": ["https://matrix.org"],
+    "siteId": 1
+  },
+  "enable_presence_by_hs_url": {
+    "https://matrix.org": false
+  },
+  "terms_and_conditions_links": [
+    {
+      "url": "https://element.io/terms-of-service",
+      "text": "Terms and Conditions"
+    }
+  ],
+  "sentry": {
+    "dsn": "https://a7e8d0f8c5e24c8f8c5e24c8f8c5e24c8@sentry.io/1234567"
+  },
+  "posthog": {
+    "api_key": "phc_posthog_api_key",
+    "api_host": "https://posthog.element.io"
+  }
+}

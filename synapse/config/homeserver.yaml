@@ -1,0 +1,79 @@
+# Server configuration
+# NOTE: Replace with your actual domain from .env
+server_name: "messenger.statex.cz"
+pid_file: /data/homeserver.pid
+web_client_location: https://messenger.statex.cz/
+
+# Database configuration
+# NOTE: Replace POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PORT with values from .env
+database:
+  name: psycopg2
+  args:
+    user: synapse
+    password: "REPLACE_WITH_POSTGRES_PASSWORD"
+    database: synapse
+    host: ${SERVICE_NAME:-messenger}-postgres
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+
+# Redis configuration for caching
+# NOTE: Replace REDIS_PASSWORD, REDIS_PORT with values from .env
+redis:
+  enabled: true
+  host: ${SERVICE_NAME:-messenger}-redis
+  port: 6379
+  password: "REPLACE_WITH_REDIS_PASSWORD"
+
+# Registration
+enable_registration: false
+# NOTE: Replace with your registration secret from .env
+registration_shared_secret: "REPLACE_WITH_SYNAPSE_REGISTRATION_SECRET"
+
+# Media storage
+media_store_path: "/data/media_store"
+uploads_path: "/data/uploads"
+max_upload_size: "50M"
+max_image_pixels: "32M"
+
+# Logging
+log_config: "/data/log.config"
+
+# Federation
+federation_domain_whitelist: []
+
+# Rate limiting
+rc_message:
+  per_second: 0.2
+  burst_count: 3
+
+rc_registration:
+  per_second: 0.17
+  burst_count: 3
+
+rc_login:
+  address:
+    per_second: 0.17
+    burst_count: 3
+  account:
+    per_second: 0.17
+    burst_count: 3
+  failed_attempts:
+    per_second: 0.17
+    burst_count: 3
+
+# Resource limits for low-resource servers
+limit_remote_rooms:
+  enabled: false
+
+# Retention
+retention:
+  enabled: false
+
+# Experimental features
+experimental_features:
+  msc3266_local_private_read_receipts: true
+  msc3882_simple_push_rules: true
+
+# LiveKit integration (will be configured via integration module)
+# The Matrix LiveKit integration module will handle this configuration

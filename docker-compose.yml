@@ -1,0 +1,91 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ${SERVICE_NAME:-messenger}-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-synapse}
+      POSTGRES_DB: ${POSTGRES_DB:-synapse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-synapse}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ${NETWORK_NAME:-nginx-network}
+
+  redis:
+    image: redis:7-alpine
+    container_name: ${SERVICE_NAME:-messenger}-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru --port ${REDIS_PORT:-6379}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - ${NETWORK_NAME:-nginx-network}
+
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: ${SERVICE_NAME:-messenger}-synapse
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./synapse/data:/data
+      - ./synapse/config/homeserver.yaml:/data/homeserver.yaml:ro
+    environment:
+      SYNAPSE_SERVER_NAME: ${DOMAIN}
+      SYNAPSE_REPORT_STATS: "no"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${SYNAPSE_PORT:-8008}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - ${NETWORK_NAME:-nginx-network}
+
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: ${SERVICE_NAME:-messenger}-livekit
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    volumes:
+      - ./livekit/config.yaml:/etc/livekit.yaml:ro
+    environment:
+      LIVEKIT_KEYS: ${LIVEKIT_API_KEY}:${LIVEKIT_API_SECRET}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${LIVEKIT_HTTP_PORT:-7880}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - ${NETWORK_NAME:-nginx-network}
+
+  element-web:
+    image: vectorim/element-web:latest
+    container_name: ${SERVICE_NAME:-messenger}-element
+    restart: unless-stopped
+    volumes:
+      - ./element/config.json:/app/config.json:ro
+    networks:
+      - ${NETWORK_NAME:-nginx-network}
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  nginx-network:
+    external: true

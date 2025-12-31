@@ -1,0 +1,29 @@
+# NOTE: Replace port values with LIVEKIT_HTTP_PORT, LIVEKIT_HTTPS_PORT, LIVEKIT_RTC_PORT_START, LIVEKIT_RTC_PORT_END from .env
+port: 7880
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 60000
+  use_external_ip: false
+
+# NOTE: Replace API_KEY and API_SECRET with your actual LiveKit API keys from .env
+# Generate keys using: livekit-cli token create --api-key <key> --api-secret <secret>
+keys:
+  API_KEY: API_SECRET
+
+region: ""
+
+log_level: info
+
+development: false
+
+redis: {}
+
+turn:
+  enabled: true
+  # NOTE: Replace with your LiveKit domain from .env (without https://)
+  domain: messenger.statex.cz
+  tls_port: 7882
+  udp_port: 7882
+  external_tls: true
+
