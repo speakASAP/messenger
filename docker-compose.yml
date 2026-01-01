@@ -44,7 +44,6 @@ services:
         condition: service_healthy
     volumes:
       - ./synapse/data:/data
-      - ./synapse/config/homeserver.yaml:/data/homeserver.yaml:ro
     environment:
       SYNAPSE_SERVER_NAME: ${DOMAIN}
       SYNAPSE_REPORT_STATS: "no"
