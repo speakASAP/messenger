@@ -91,6 +91,8 @@ services:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
     env_file:
       - .env
+    environment:
+      LIVEKIT_KEYS: ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
     command: --config /etc/livekit.yaml
     deploy:
       resources:
@@ -112,7 +114,6 @@ services:
     image: vectorim/element-web:latest
     container_name: ${SERVICE_NAME:-messenger}-element
     restart: unless-stopped
-    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./element/config.json:/app/config.json:ro
       - element_nginx_conf:/etc/nginx/conf.d
