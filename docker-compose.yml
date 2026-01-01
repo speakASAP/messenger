@@ -92,7 +92,7 @@ services:
     env_file:
       - .env
     environment:
-      LIVEKIT_KEYS: ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
+      LIVEKIT_KEYS: "${LIVEKIT_API_KEY}:${LIVEKIT_API_SECRET}"
     command: --config /etc/livekit.yaml
     deploy:
       resources:
