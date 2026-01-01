@@ -75,8 +75,9 @@ fi
 # Generate LiveKit keys file (format: key: secret with space after colon)
 if [ -n "$LIVEKIT_API_KEY" ] && [ -n "$LIVEKIT_API_SECRET" ]; then
     echo "Generating LiveKit keys file..."
-    echo "${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}" > livekit/keys.yaml
-    # Set permissions: owner read/write only, others none (required by LiveKit)
+    # Set umask to ensure file is created with correct permissions
+    (umask 077 && echo "${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}" > livekit/keys.yaml)
+    # Ensure permissions are correct (owner read/write only, others none - required by LiveKit)
     chmod 600 livekit/keys.yaml
     echo "✅ LiveKit keys file generated"
 fi
