@@ -10,6 +10,12 @@ if [ -d /data ]; then
     chmod -R 755 /data 2>/dev/null || true
 fi
 
+# Create user if it doesn't exist
+if ! id -u 1001 >/dev/null 2>&1; then
+    groupadd -g 1001 statex 2>/dev/null || true
+    useradd -u 1001 -g 1001 -m -s /bin/sh statex 2>/dev/null || true
+fi
+
 # Switch to non-root user and run Synapse
-exec su-exec 1001:1001 /start.py "$@"
+exec su -s /bin/sh -c "/start.py $*" 1001
 
