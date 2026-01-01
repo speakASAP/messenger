@@ -31,10 +31,14 @@ redis:
 
 # Registration
 enable_registration: true
+enable_registration_without_verification: true
 # Public registration enabled - users can register via web client
 # NOTE: registration_shared_secret is commented out to allow public registration
 # Uncomment and set registration_shared_secret if you want to restrict registration to admin-only
 # registration_shared_secret: "REPLACE_WITH_SYNAPSE_REGISTRATION_SECRET"
+
+# Macaroon secret key (required for authentication)
+macaroon_secret_key: "${SYNAPSE_SECRET_KEY}"
 
 # Media storage
 media_store_path: "/data/media_store"
