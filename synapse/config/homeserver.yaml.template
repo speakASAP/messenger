@@ -47,7 +47,7 @@ max_upload_size: "50M"
 max_image_pixels: "32M"
 
 # Logging
-log_config: "/data/log.config"
+# log_config: "/data/log.config"  # Commented out - using default logging
 
 # Listeners
 # NOTE: Port replaced from .env using envsubst
