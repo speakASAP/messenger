@@ -85,7 +85,7 @@ docker exec -it messenger-synapse python -m synapse.app.homeserver \
 ```bash
 docker exec -it messenger-synapse register_new_matrix_user \
     -c /data/homeserver.yaml \
-    -a -u admin -p <password> http://localhost:8008
+    -a -u admin -p <password> http://localhost:3708
 ```
 
 ### 7. Install LiveKit Integration
@@ -108,7 +108,7 @@ The service registry will be auto-created by deploy-smart.sh. Expected structure
   "services": {
     "synapse": {
       "container_name_base": "messenger-synapse",
-      "container_port": 8008,
+      "container_port": 3708,
       "health_endpoint": "/health",
       "health_timeout": 10,
       "health_retries": 2,
@@ -150,7 +150,7 @@ All ports are configured via `.env` file:
 
 - `POSTGRES_PORT=5432` - PostgreSQL port
 - `REDIS_PORT=6379` - Redis port
-- `SYNAPSE_PORT=8008` - Synapse Matrix server port
+- `SYNAPSE_PORT=3708` - Synapse Matrix server port
 - `ELEMENT_PORT=80` - Element web client port
 - `LIVEKIT_HTTP_PORT=7880` - LiveKit HTTP API port
 - `LIVEKIT_HTTPS_PORT=7881` - LiveKit HTTPS API port
@@ -196,7 +196,7 @@ All ports are configured via `.env` file:
 
 2. Verify health endpoints:
    ```bash
-   docker exec messenger-synapse curl -f http://localhost:8008/health
+   docker exec messenger-synapse curl -f http://localhost:3708/health
    docker exec messenger-element curl -f http://localhost:80/
    docker exec messenger-livekit curl -f http://localhost:7880/
    ```

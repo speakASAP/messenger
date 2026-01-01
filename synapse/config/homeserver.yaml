@@ -42,7 +42,7 @@ log_config: "/data/log.config"
 
 # Listeners
 listeners:
-  - port: 8008
+  - port: 3708
     type: http
     tls: false
     bind_addresses: ['::', '0.0.0.0']

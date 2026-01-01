@@ -140,7 +140,7 @@ docker-compose restart synapse
 ```bash
 docker exec -it ${SERVICE_NAME:-messenger}-synapse register_new_matrix_user \
     -c /data/homeserver.yaml \
-    -a -u admin -p <password> http://localhost:${SYNAPSE_PORT:-8008}
+    -a -u admin -p <password> http://localhost:${SYNAPSE_PORT:-3708}
 ```
 
 ### 11. Test A/V Calls
