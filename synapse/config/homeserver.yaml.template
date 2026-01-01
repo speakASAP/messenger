@@ -12,11 +12,11 @@ report_stats: false
 database:
   name: psycopg2
   args:
-    user: "${POSTGRES_USER:-synapse}"
+    user: "${POSTGRES_USER}"
     password: "${POSTGRES_PASSWORD}"
-    database: "${POSTGRES_DB:-synapse}"
-    host: "${SERVICE_NAME:-messenger}-postgres"
-    port: ${POSTGRES_PORT:-5432}
+    database: "${POSTGRES_DB}"
+    host: "${SERVICE_NAME}-postgres"
+    port: ${POSTGRES_PORT}
     cp_min: 5
     cp_max: 10
   allow_unsafe_locale: true
@@ -25,8 +25,8 @@ database:
 # NOTE: Values replaced from .env using envsubst
 redis:
   enabled: true
-  host: "${SERVICE_NAME:-messenger}-redis"
-  port: ${REDIS_PORT:-6379}
+  host: "${SERVICE_NAME}-redis"
+  port: ${REDIS_PORT}
   password: "${REDIS_PASSWORD}"
 
 # Registration
