@@ -115,6 +115,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./element/config.json:/app/config.json:ro
+      - ./element/.well-known:/app/web/.well-known:ro
       - element_nginx_conf:/etc/nginx/conf.d
     env_file:
       - .env
