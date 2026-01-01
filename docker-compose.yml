@@ -37,7 +37,6 @@ services:
     image: matrixdotorg/synapse:latest
     container_name: ${SERVICE_NAME:-messenger}-synapse
     restart: unless-stopped
-    user: "1001:1001"
     depends_on:
       postgres:
         condition: service_healthy
@@ -50,7 +49,6 @@ services:
     environment:
       SYNAPSE_SERVER_NAME: ${DOMAIN}
       SYNAPSE_REPORT_STATS: "no"
-    entrypoint: ["python", "-m", "synapse.app.homeserver", "--config-path", "/data/homeserver.yaml"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${SYNAPSE_PORT:-3708}/health"]
       interval: 30s
@@ -63,7 +61,6 @@ services:
     image: livekit/livekit-server:latest
     container_name: ${SERVICE_NAME:-messenger}-livekit
     restart: unless-stopped
-    user: "1001:1001"
     volumes:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
     env_file:
