@@ -1,8 +1,9 @@
-# Server configuration
+docker compose up -d synapse# Server configuration
 # NOTE: Replace with your actual domain from .env
 server_name: "messenger.statex.cz"
 pid_file: /data/homeserver.pid
 web_client_location: https://messenger.statex.cz/
+signing_key_path: "/data/messenger.statex.cz.signing.key"
 
 # Database configuration
 # NOTE: Replace POSTGRES_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PORT with values from .env
