@@ -112,8 +112,9 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${LIVEKIT_HTTP_PORT:-7880}/"]
       interval: 30s
-      timeout: 10s
-      retries: 3
+      timeout: 15s
+      retries: 5
+      start_period: 60s
     networks:
       - ${NETWORK_NAME:-nginx-network}
 
