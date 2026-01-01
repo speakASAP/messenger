@@ -48,7 +48,7 @@ log_config: "/data/log.config"
 # Listeners
 # NOTE: Port replaced from .env using envsubst
 listeners:
-  - port: ${SYNAPSE_PORT:-3708}
+  - port: ${SYNAPSE_PORT}
     type: http
     tls: false
     bind_addresses: ['::', '0.0.0.0']

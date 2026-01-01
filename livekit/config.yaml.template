@@ -8,7 +8,7 @@ rtc:
 
 # NOTE: API keys replaced from .env using envsubst
 keys:
-  ${LIVEKIT_API_KEY}: "${LIVEKIT_API_SECRET}"
+  ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
 
 region: ""
 
