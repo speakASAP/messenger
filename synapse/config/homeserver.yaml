@@ -1,4 +1,4 @@
-docker compose up -d synapse# Server configuration
+# Server configuration
 # NOTE: Replace with your actual domain from .env
 server_name: "messenger.statex.cz"
 pid_file: /data/homeserver.pid
