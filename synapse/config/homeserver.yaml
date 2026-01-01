@@ -27,7 +27,7 @@ redis:
   password: "REPLACE_WITH_REDIS_PASSWORD"
 
 # Registration
-enable_registration: false
+enable_registration: true
 # NOTE: Replace with your registration secret from .env
 registration_shared_secret: "REPLACE_WITH_SYNAPSE_REGISTRATION_SECRET"
 
