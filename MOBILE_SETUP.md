@@ -42,6 +42,7 @@ Launch the Element X app on your mobile device.
 4. Tap **"Continue"** or **"Next"**
 
 **Note**: If you don't see a server configuration option:
+
 - Look for **"Advanced"** or **"Settings"** button
 - Or tap **"Sign in"** and then look for **"Change server"** option
 
@@ -52,6 +53,7 @@ Launch the Element X app on your mobile device.
 3. Tap **"Sign in"**
 
 **Alternative**: If you haven't created an account yet, you can:
+
 - Tap **"Create account"** (if registration is enabled)
 - Or create an account via command line first (see below)
 
@@ -68,6 +70,7 @@ docker exec -it messenger-synapse register_new_matrix_user \
 ```
 
 Replace:
+
 - `admin` with your desired username
 - `<your-password>` with your desired password
 
@@ -76,6 +79,7 @@ Replace:
 ## Verifying Connection
 
 After signing in, you should see:
+
 - ✅ Your profile/account information
 - ✅ Ability to create rooms
 - ✅ Ability to send messages
@@ -86,9 +90,11 @@ After signing in, you should see:
 ### Can't Connect to Server
 
 1. **Check server accessibility**:
+
    ```bash
    curl https://messenger.statex.cz/_matrix/client/versions
    ```
+
    Should return JSON with Matrix API versions.
 
 2. **Verify SSL certificate**:
@@ -109,6 +115,7 @@ After signing in, you should see:
 ### A/V Calls Not Working
 
 1. **Check LiveKit service**:
+
    ```bash
    docker logs messenger-livekit
    ```
@@ -134,8 +141,8 @@ Once connected, you'll have access to:
 
 ## Additional Resources
 
-- **Element X Documentation**: https://element.io/help
-- **Matrix Specification**: https://spec.matrix.org/
+- **Element X Documentation**: <https://element.io/help>
+- **Matrix Specification**: <https://spec.matrix.org/>
 - **Server Status**: Check `https://messenger.statex.cz/_matrix/client/versions`
 
 ## Support
@@ -143,6 +150,7 @@ Once connected, you'll have access to:
 If you encounter issues:
 
 1. Check server logs:
+
    ```bash
    docker logs messenger-synapse
    docker logs messenger-element
@@ -150,13 +158,14 @@ If you encounter issues:
    ```
 
 2. Verify nginx configuration:
+
    ```bash
    cd ~/nginx-microservice
    ./scripts/blue-green/health-check.sh messenger
    ```
 
 3. Check Matrix server status:
+
    ```bash
    curl https://messenger.statex.cz/_matrix/client/versions
    ```
-
