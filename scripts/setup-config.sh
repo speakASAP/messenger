@@ -72,6 +72,13 @@ if [ -f livekit/config.yaml.template ]; then
     echo "✅ LiveKit config generated"
 fi
 
+# Generate LiveKit keys file (format: key: secret with space after colon)
+if [ -n "$LIVEKIT_API_KEY" ] && [ -n "$LIVEKIT_API_SECRET" ]; then
+    echo "Generating LiveKit keys file..."
+    echo "${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}" > livekit/keys.yaml
+    echo "✅ LiveKit keys file generated"
+fi
+
 # Process Element config template
 if [ -f element/config.json.template ]; then
     echo "Processing Element configuration..."

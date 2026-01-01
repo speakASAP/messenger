@@ -6,11 +6,8 @@ rtc:
   port_range_end: ${LIVEKIT_RTC_PORT_END}
   use_external_ip: false
 
-# NOTE: API keys replaced from .env using envsubst
-# Format: key: secret (exactly as specified by LiveKit)
-# Secret is quoted to handle special characters like / and =
-keys:
-  ${LIVEKIT_API_KEY}: "${LIVEKIT_API_SECRET}"
+# NOTE: API keys are in separate keys.yaml file (mounted as /etc/livekit-keys.yaml)
+# Keys section removed - using --key-file option instead
 
 region: ""
 
