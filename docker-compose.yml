@@ -114,9 +114,9 @@ services:
     image: vectorim/element-web:latest
     container_name: ${SERVICE_NAME:-messenger}-element
     restart: unless-stopped
-    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./element/config.json:/app/config.json:ro
+      - element_nginx_conf:/etc/nginx/conf.d
     env_file:
       - .env
     deploy:
@@ -127,12 +127,18 @@ services:
         reservations:
           cpus: '0.05'
           memory: 16M
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:80/ > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - ${NETWORK_NAME:-nginx-network}
 
 volumes:
   postgres_data:
   redis_data:
+  element_nginx_conf:
 
 networks:
   nginx-network:
