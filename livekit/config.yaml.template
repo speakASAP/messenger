@@ -8,9 +8,9 @@ rtc:
 
 # NOTE: API keys replaced from .env using envsubst
 # Format: key: secret (exactly as specified by LiveKit)
-# Secret is quoted to handle special characters like / and =
+# Must have exactly one space after the colon
 keys:
-  ${LIVEKIT_API_KEY}: "${LIVEKIT_API_SECRET}"
+  ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
 
 region: ""
 
