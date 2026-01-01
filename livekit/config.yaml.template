@@ -6,11 +6,9 @@ rtc:
   port_range_end: ${LIVEKIT_RTC_PORT_END}
   use_external_ip: false
 
-# NOTE: API keys replaced from .env using envsubst
-# Format: key: secret (exactly as specified by LiveKit)
-# Must have exactly one space after the colon
-keys:
-  ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
+# NOTE: API keys are set via LIVEKIT_KEYS environment variable
+# Format: key: secret (with space after colon)
+# Keys section removed - using environment variable instead
 
 region: ""
 
