@@ -91,8 +91,6 @@ services:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
     env_file:
       - .env
-    environment:
-      LIVEKIT_KEYS: ${LIVEKIT_API_KEY}:${LIVEKIT_API_SECRET}
     command: --config /etc/livekit.yaml
     deploy:
       resources:
@@ -117,6 +115,7 @@ services:
     user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./element/config.json:/app/config.json:ro
+      - element_nginx_conf:/etc/nginx/conf.d
     env_file:
       - .env
     deploy:
@@ -127,12 +126,18 @@ services:
         reservations:
           cpus: '0.05'
           memory: 16M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - ${NETWORK_NAME:-nginx-network}
 
 volumes:
   postgres_data:
   redis_data:
+  element_nginx_conf:
 
 networks:
   nginx-network:

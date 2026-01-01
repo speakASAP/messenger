@@ -54,6 +54,14 @@ if [ -f synapse/config/homeserver.yaml.template ]; then
     echo "✅ Synapse config generated"
 fi
 
+# Process Synapse log config template
+if [ -f synapse/config/log.config.template ]; then
+    echo "Processing Synapse log configuration..."
+    mkdir -p synapse/data
+    cp synapse/config/log.config.template synapse/data/log.config
+    echo "✅ Synapse log config generated"
+fi
+
 # Process LiveKit config template
 if [ -f livekit/config.yaml.template ]; then
     echo "Processing LiveKit configuration..."
