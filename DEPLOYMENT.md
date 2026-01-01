@@ -33,8 +33,24 @@ nano .env
 - `DOMAIN=messenger.statex.cz`
 - `SERVICE_NAME=messenger`
 - `PRODUCTION_PATH=/home/statex/messenger`
+- `CONTAINER_USER_UID` - User ID for all containers (MUST NOT be 0/root)
+- `CONTAINER_USER_GID` - Group ID for all containers (MUST NOT be 0/root)
 - All passwords and secrets
 - All port configurations
+
+**IMPORTANT - Container User Configuration:**
+All containers must run as a non-root user. For production deployment on `/home/statex/messenger`, set:
+```bash
+CONTAINER_USER_UID=$(id -u statex)
+CONTAINER_USER_GID=$(id -g statex)
+```
+
+Or use the helper script:
+```bash
+./scripts/detect-user.sh
+```
+
+**Security Requirement:** Containers are strictly forbidden from running as root (UID/GID 0). The setup script validates this and will fail if root is detected.
 
 ### 3. Run Setup Script
 

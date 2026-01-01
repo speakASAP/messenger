@@ -56,6 +56,20 @@ Required variables:
 - `LIVEKIT_API_SECRET` - LiveKit API secret
 - `REDIS_PASSWORD` - Redis password
 - `LETSENCRYPT_EMAIL` - Email for Let's Encrypt notifications
+- `CONTAINER_USER_UID` - User ID for all containers (MUST NOT be 0/root)
+- `CONTAINER_USER_GID` - Group ID for all containers (MUST NOT be 0/root)
+
+**IMPORTANT - Container User Configuration:**
+All containers run as a non-root user for security. You must configure `CONTAINER_USER_UID` and `CONTAINER_USER_GID` in your `.env` file to match your host user's UID/GID.
+
+To detect your user's UID/GID automatically:
+```bash
+./scripts/detect-user.sh
+```
+
+This will output the values to add to your `.env` file. Alternatively, run `id` to see your UID/GID manually.
+
+**Security Requirement:** Containers are strictly forbidden from running as root (UID/GID 0). The setup script will validate this and fail if root is detected.
 
 ### 4. Configure DNS
 
@@ -243,8 +257,36 @@ docker compose logs certbot
    docker logs ${SERVICE_NAME:-messenger}-postgres
    ```
 
+### Volume Permission Issues
+
+If containers fail to start due to permission errors on bind-mounted volumes:
+
+1. Check your `.env` file has correct `CONTAINER_USER_UID` and `CONTAINER_USER_GID`:
+   ```bash
+   grep CONTAINER_USER .env
+   ```
+
+2. Set correct ownership on bind-mounted directories:
+   ```bash
+   # Replace 1000:1000 with your CONTAINER_USER_UID:GID from .env
+   sudo chown -R 1000:1000 ./synapse/data
+   ```
+
+3. Verify container user matches host user:
+   ```bash
+   ./scripts/detect-user.sh
+   # Compare output with values in .env
+   ```
+
+4. Check container is not running as root:
+   ```bash
+   docker exec ${SERVICE_NAME:-messenger}-synapse id
+   # Should show non-zero UID/GID
+   ```
+
 ## Security
 
+- **All containers run as non-root user** - Configured via `CONTAINER_USER_UID` and `CONTAINER_USER_GID` in `.env`
 - Change all default passwords
 - Restrict registration after initial setup
 - Use strong secrets (32+ characters)
@@ -252,6 +294,23 @@ docker compose logs certbot
 - Configure firewall rules
 - Enable rate limiting
 - Use HTTPS only
+
+### Container User Security
+
+All containers are configured to run as a non-root user for security. This is enforced at multiple levels:
+
+1. **docker-compose.yml** - All services have `user: "${CONTAINER_USER_UID:-1000}:${CONTAINER_USER_GID:-1000}"` directive
+2. **setup-config.sh** - Validates that UID/GID are not 0 (root) and fails if root is detected
+3. **Default fallback** - If not configured, defaults to UID/GID 1000 (non-root)
+
+**Volume Permissions:**
+When using bind mounts (e.g., `./synapse/data`), ensure the directories have correct permissions for the container user:
+```bash
+# Set ownership to match container user (replace 1000:1000 with your CONTAINER_USER_UID:GID)
+sudo chown -R 1000:1000 ./synapse/data
+```
+
+For named volumes (postgres_data, redis_data), Docker handles permissions automatically.
 
 ## Resources
 

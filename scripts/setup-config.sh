@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Setup configuration files using envsubst
-# This script uses envsubst to substitute .env variables into template files
-# Much simpler than sed replacements - just one command per file
+# Setup script - ensures .env exists and sets CURRENT_UID/GID from current user
+# Also processes config templates using envsubst
 
 set -e
 
@@ -11,7 +10,36 @@ if [ ! -f .env ]; then
     exit 1
 fi
 
-# Source .env file to make variables available
+# Detect current user's UID and GID (avoid readonly UID variable)
+CURRENT_UID=$(id -u)
+CURRENT_GID=$(id -g)
+
+# Validate that we're not root
+if [ "$CURRENT_UID" = "0" ] || [ "$CURRENT_GID" = "0" ]; then
+    echo "ERROR: Cannot run as root user (UID/GID 0)."
+    echo "Please run this script as a non-root user."
+    exit 1
+fi
+
+# Add or update CURRENT_UID and CURRENT_GID in .env
+if grep -q "^CURRENT_UID=" .env; then
+    sed -i.bak "s/^CURRENT_UID=.*/CURRENT_UID=${CURRENT_UID}/" .env
+else
+    echo "CURRENT_UID=${CURRENT_UID}" >> .env
+fi
+
+if grep -q "^CURRENT_GID=" .env; then
+    sed -i.bak "s/^CURRENT_GID=.*/CURRENT_GID=${CURRENT_GID}/" .env
+else
+    echo "CURRENT_GID=${CURRENT_GID}" >> .env
+fi
+
+# Clean up backup file if created
+rm -f .env.bak
+
+echo "✅ .env updated with current user UID/GID (${CURRENT_UID}:${CURRENT_GID})"
+
+# Source .env file to make variables available for envsubst
 set -a
 source .env
 set +a
@@ -45,4 +73,5 @@ fi
 
 echo ""
 echo "✅ All configuration files generated successfully!"
-echo "No manual editing needed - all values come from .env"
+echo "✅ Containers will run as non-root user (${CURRENT_UID}:${CURRENT_GID})"
+echo "✅ No hardcoded UIDs - portable across servers and OS"

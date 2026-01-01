@@ -3,6 +3,7 @@ services:
     image: postgres:16-alpine
     container_name: ${SERVICE_NAME:-messenger}-postgres
     restart: unless-stopped
+    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-synapse}
       POSTGRES_DB: ${POSTGRES_DB:-synapse}
@@ -22,6 +23,7 @@ services:
     image: redis:7-alpine
     container_name: ${SERVICE_NAME:-messenger}-redis
     restart: unless-stopped
+    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru --port ${REDIS_PORT:-6379}
     volumes:
       - redis_data:/data
@@ -37,6 +39,7 @@ services:
     image: matrixdotorg/synapse:latest
     container_name: ${SERVICE_NAME:-messenger}-synapse
     restart: unless-stopped
+    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -61,6 +64,7 @@ services:
     image: livekit/livekit-server:latest
     container_name: ${SERVICE_NAME:-messenger}-livekit
     restart: unless-stopped
+    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
     env_file:
@@ -80,6 +84,7 @@ services:
     image: vectorim/element-web:latest
     container_name: ${SERVICE_NAME:-messenger}-element
     restart: unless-stopped
+    user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./element/config.json:/app/config.json:ro
     env_file:
