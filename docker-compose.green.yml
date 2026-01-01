@@ -55,7 +55,7 @@ services:
     restart: unless-stopped
     user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     ports:
-      - "${SYNAPSE_PORT:-3708}:${SYNAPSE_PORT:-3708}"
+      - "13708:${SYNAPSE_PORT:-3708}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -90,7 +90,7 @@ services:
     restart: unless-stopped
     user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     ports:
-      - "${LIVEKIT_HTTP_PORT:-7880}:${LIVEKIT_HTTP_PORT:-7880}"
+      - "17880:${LIVEKIT_HTTP_PORT:-7880}"
     volumes:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
       - ./livekit/keys.yaml:/etc/livekit-keys.yaml:ro
@@ -118,7 +118,7 @@ services:
     container_name: ${SERVICE_NAME:-messenger}-element-green
     restart: unless-stopped
     ports:
-      - "${ELEMENT_PORT:-80}:80"
+      - "18080:80"
     volumes:
       - ./element/config.json:/app/config.json:ro
       - ./element/.well-known:/app/web/.well-known:ro
