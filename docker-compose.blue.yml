@@ -126,7 +126,7 @@ services:
     volumes:
       - ./element/config.json:/app/config.json:ro
       - ./element/.well-known:/app/web/.well-known:ro
-      - element_nginx_conf:/etc/nginx/conf.d
+      - ./element/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     env_file:
       - .env
     deploy:
