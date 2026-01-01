@@ -113,7 +113,7 @@ services:
     networks:
       - ${NETWORK_NAME:-nginx-network}
 
-  element-web:
+  frontend:
     image: vectorim/element-web:latest
     container_name: ${SERVICE_NAME:-messenger}-element-green
     restart: unless-stopped
