@@ -7,8 +7,9 @@ rtc:
   use_external_ip: false
 
 # NOTE: API keys replaced from .env using envsubst
+# Format: key: secret (exactly as specified by LiveKit)
 keys:
-  ${LIVEKIT_API_KEY}: "${LIVEKIT_API_SECRET}"
+  ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
 
 region: ""
 
