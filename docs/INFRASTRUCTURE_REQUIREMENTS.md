@@ -25,6 +25,7 @@ This document outlines the infrastructure requirements for deploying a self-host
 ### Ports to Open
 
 **TCP Ports:**
+
 - `80` - HTTP (for Let's Encrypt challenges and redirects)
 - `443` - HTTPS (for all services)
 - `7880` - LiveKit HTTP API
@@ -32,12 +33,14 @@ This document outlines the infrastructure requirements for deploying a self-host
 - `7882` - LiveKit TURN/STUN (TCP)
 
 **UDP Ports:**
+
 - `7882` - LiveKit TURN/STUN (UDP)
 - `50000-60000` - LiveKit RTC media (UDP)
 
 ### Firewall Configuration
 
 Ensure these ports are open in:
+
 1. Server firewall (iptables, ufw, firewalld, etc.)
 2. Cloud provider security groups
 3. Router/firewall (if applicable)
@@ -45,6 +48,7 @@ Ensure these ports are open in:
 ### DNS Configuration
 
 Required DNS A records:
+
 - `matrix.example.com` → Server IP
 - `element.example.com` → Server IP
 - `livekit.example.com` → Server IP
@@ -68,12 +72,14 @@ Before deployment, verify:
 ### Pre-Deployment Tests
 
 1. **Test UDP port accessibility:**
+
    ```bash
    nc -u -v <server-ip> 7882
    # Should connect, not timeout
    ```
 
 2. **Test DNS resolution:**
+
    ```bash
    dig matrix.example.com
    dig element.example.com
@@ -82,6 +88,7 @@ Before deployment, verify:
    ```
 
 3. **Test HTTPS (after deployment):**
+
    ```bash
    curl https://livekit.example.com
    # Should return LiveKit API response
@@ -110,6 +117,7 @@ Before deployment, verify:
 **Symptoms**: A/V calls fail, WebRTC connections can't establish
 
 **Solutions**:
+
 - Open UDP ports 7882 (TURN/STUN) and 50000-60000 (RTC) in firewall
 - Configure cloud provider security groups/firewall rules
 - Test port accessibility: `nc -u -v <server-ip> 7882`
@@ -121,6 +129,7 @@ Before deployment, verify:
 **Symptoms**: A/V calls fail in production, work in development
 
 **Solutions**:
+
 - Configure Let's Encrypt certificates for LiveKit domain
 - Set up nginx reverse proxy with SSL termination
 - Ensure LiveKit URL uses HTTPS
@@ -132,6 +141,7 @@ Before deployment, verify:
 **Symptoms**: Clients can't connect to LiveKit server
 
 **Solutions**:
+
 - Ensure domain resolves to server's public IP
 - Configure A record for LiveKit domain
 - Test DNS: `dig livekit.example.com`
@@ -143,6 +153,7 @@ Before deployment, verify:
 **Symptoms**: Matrix rooms can't create LiveKit sessions
 
 **Solutions**:
+
 - Verify API key and secret in LiveKit config
 - Ensure same credentials in Synapse LiveKit integration
 - Check LiveKit logs for authentication errors
@@ -177,4 +188,3 @@ Before deployment, verify:
 3. **Rate Limiting**: Configure rate limiting in nginx
 4. **Access Control**: Restrict registration after initial setup
 5. **Regular Updates**: Keep Docker images and system updated
-

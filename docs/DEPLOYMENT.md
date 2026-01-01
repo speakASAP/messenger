@@ -30,6 +30,7 @@ nano .env
 ```
 
 **Required .env variables:**
+
 - `DOMAIN=messenger.statex.cz`
 - `SERVICE_NAME=messenger`
 - `PRODUCTION_PATH=/home/statex/messenger`
@@ -40,12 +41,14 @@ nano .env
 
 **IMPORTANT - Container User Configuration:**
 All containers must run as a non-root user. For production deployment on `/home/statex/messenger`, set:
+
 ```bash
 CONTAINER_USER_UID=$(id -u statex)
 CONTAINER_USER_GID=$(id -g statex)
 ```
 
 Or use the helper script:
+
 ```bash
 ./scripts/detect-user.sh
 ```
@@ -60,6 +63,7 @@ Or use the helper script:
 ```
 
 **Important**: After running setup-config.sh, manually update `livekit/config.yaml` with your LiveKit API keys:
+
 - Replace `API_KEY` with your `LIVEKIT_API_KEY` from .env
 - Replace `API_SECRET` with your `LIVEKIT_API_SECRET` from .env
 
@@ -71,6 +75,7 @@ cd /path/to/nginx-microservice
 ```
 
 The deployment script will:
+
 - Auto-create service registry in `nginx-microservice/service-registry/messenger.json`
 - Detect services from docker-compose.yml
 - Build and start containers (blue/green)
@@ -185,17 +190,20 @@ All ports are configured via `.env` file:
 ### Service Not Accessible
 
 1. Check if service is deployed:
+
    ```bash
    cd /path/to/nginx-microservice
    ./scripts/status-all-services.sh | grep messenger
    ```
 
 2. Check container status:
+
    ```bash
    docker ps | grep messenger
    ```
 
 3. Check nginx configuration:
+
    ```bash
    cd /path/to/nginx-microservice
    ls -la nginx/conf.d/ | grep messenger
@@ -204,6 +212,7 @@ All ports are configured via `.env` file:
 ### Health Check Failures
 
 1. Check service logs:
+
    ```bash
    docker logs messenger-synapse
    docker logs messenger-element
@@ -211,6 +220,7 @@ All ports are configured via `.env` file:
    ```
 
 2. Verify health endpoints:
+
    ```bash
    docker exec messenger-synapse curl -f http://localhost:3708/health
    docker exec messenger-element curl -f http://localhost:80/
@@ -248,4 +258,3 @@ cd /path/to/nginx-microservice
 ```
 
 The blue/green deployment system ensures zero-downtime updates.
-
