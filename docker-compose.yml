@@ -44,11 +44,11 @@ services:
         condition: service_healthy
     volumes:
       - ./synapse/data:/data
-      - ./synapse/config/homeserver.yaml.template:/templates/homeserver.yaml.template:ro
+    env_file:
+      - .env
     environment:
       SYNAPSE_SERVER_NAME: ${DOMAIN}
       SYNAPSE_REPORT_STATS: "no"
-    entrypoint: /bin/sh -c "envsubst < /templates/homeserver.yaml.template > /data/homeserver.yaml && exec /start.py"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${SYNAPSE_PORT:-3708}/health"]
       interval: 30s
@@ -62,11 +62,12 @@ services:
     container_name: ${SERVICE_NAME:-messenger}-livekit
     restart: unless-stopped
     volumes:
-      - ./livekit/config.yaml.template:/templates/livekit.yaml.template:ro
+      - ./livekit/config.yaml:/etc/livekit.yaml:ro
+    env_file:
+      - .env
     environment:
       LIVEKIT_KEYS: ${LIVEKIT_API_KEY}:${LIVEKIT_API_SECRET}
-      LIVEKIT_DOMAIN: ${LIVEKIT_URL#https://}
-    entrypoint: /bin/sh -c "envsubst < /templates/livekit.yaml.template > /etc/livekit.yaml && exec livekit-server --config /etc/livekit.yaml"
+    command: --config /etc/livekit.yaml
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${LIVEKIT_HTTP_PORT:-7880}/"]
       interval: 30s
@@ -80,8 +81,9 @@ services:
     container_name: ${SERVICE_NAME:-messenger}-element
     restart: unless-stopped
     volumes:
-      - ./element/config.json.template:/templates/config.json.template:ro
-    entrypoint: /bin/sh -c "envsubst < /templates/config.json.template > /app/config.json && exec /docker-entrypoint.sh nginx -g 'daemon off;'"
+      - ./element/config.json:/app/config.json:ro
+    env_file:
+      - .env
     networks:
       - ${NETWORK_NAME:-nginx-network}
 
