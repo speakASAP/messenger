@@ -89,11 +89,10 @@ services:
     user: "${CURRENT_UID:-1000}:${CURRENT_GID:-1000}"
     volumes:
       - ./livekit/config.yaml:/etc/livekit.yaml:ro
+      - ./livekit/keys.yaml:/etc/livekit-keys.yaml:ro
     env_file:
       - .env
-    environment:
-      LIVEKIT_KEYS: ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
-    command: --config /etc/livekit.yaml
+    command: --config /etc/livekit.yaml --key-file /etc/livekit-keys.yaml
     deploy:
       resources:
         limits:
