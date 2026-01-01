@@ -4,6 +4,9 @@ server_name: "${DOMAIN}"
 pid_file: /data/homeserver.pid
 web_client_location: "${ELEMENT_BASE_URL}"
 
+# Reporting configuration
+report_stats: false
+
 # Database configuration
 # NOTE: Values replaced from .env using envsubst
 database:
