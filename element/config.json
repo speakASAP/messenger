@@ -8,9 +8,12 @@
     }
   },
   "default_server_name": "messenger.statex.cz",
-  "livekit": {
-    "livekit_service_url": "https://messenger.statex.cz"
+  "element_call": {
+    "url": "https://messenger.statex.cz"
   },
+  "feature_new_rooms": true,
+  "feature_group_calls": true,
+  "feature_element_call": true,
   "brand": "Element X",
   "integrations_ui_url": "https://scalar.vector.im/",
   "integrations_rest_url": "https://scalar.vector.im/api",
