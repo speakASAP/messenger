@@ -75,11 +75,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.2'
-          memory: 128M
+          cpus: '0.5'
+          memory: 512M
         reservations:
           cpus: '0.25'
-          memory: 64M
+          memory: 128M
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${SYNAPSE_PORT:-3708}/health"]
       interval: 30s
