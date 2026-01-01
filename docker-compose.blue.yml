@@ -3,6 +3,8 @@ services:
     image: postgres:16-alpine
     container_name: ${SERVICE_NAME:-messenger}-postgres
     restart: unless-stopped
+    ports:
+      - "15432:${POSTGRES_PORT:-5432}"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-synapse}
       POSTGRES_DB: ${POSTGRES_DB:-synapse}
@@ -30,6 +32,8 @@ services:
     image: redis:7-alpine
     container_name: ${SERVICE_NAME:-messenger}-redis
     restart: unless-stopped
+    ports:
+      - "16379:${REDIS_PORT:-6379}"
     command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 64mb --maxmemory-policy allkeys-lru --port ${REDIS_PORT:-6379}
     volumes:
       - redis_data:/data
