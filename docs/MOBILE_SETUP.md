@@ -1,6 +1,6 @@
 # Mobile Client Setup Guide
 
-This guide explains how to connect Element X mobile apps to your self-hosted Matrix server at `messenger.statex.cz`.
+This guide explains how to connect Element X mobile apps to the messenger microservice (self-hosted Matrix server) at `messenger.statex.cz`.
 
 ## Prerequisites
 

@@ -1,17 +1,19 @@
-# Logging Guide for Messenger Service
+# Logging Guide for Messenger Microservice
 
-This document describes where to find logs for the messenger service and how to access them.
+This document describes where to find logs for the messenger microservice and how to access them. The microservice uses blue/green deployment, so container names include color suffixes (`-blue` or `-green`).
 
 ## Docker Container Logs
 
 ### Basic Commands
 
+**Note**: For blue/green deployments, use the active color suffix (`-blue` or `-green`). Check which containers are running to determine the active color.
+
 ```bash
-# View logs for a specific container
-docker logs messenger-synapse-blue
+# View logs for a specific container (use active color)
+docker logs messenger-synapse-green
 
 # Follow logs in real-time
-docker logs -f messenger-synapse-blue
+docker logs -f messenger-synapse-green
 
 # Last N lines
 docker logs --tail 100 messenger-synapse-blue
@@ -235,6 +237,7 @@ docker compose -f docker-compose.green.yml -p messenger_green logs -f --tail 50
 ### Log Aggregation Tools
 
 For production, consider:
+
 - **ELK Stack** (Elasticsearch, Logstash, Kibana)
 - **Loki** (Grafana Loki)
 - **Fluentd**
@@ -276,4 +279,3 @@ df -h /var/lib/docker
 4. **Centralize logs** - Use log aggregation tools for production
 5. **Filter logs** - Use grep/awk to find relevant information
 6. **Archive old logs** - Keep logs for troubleshooting but don't keep forever
-

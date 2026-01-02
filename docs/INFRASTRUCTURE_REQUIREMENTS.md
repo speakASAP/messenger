@@ -1,8 +1,10 @@
-# Infrastructure Requirements for Matrix Deployment
+# Infrastructure Requirements for Messenger Microservice
 
 ## Overview
 
-This document outlines the infrastructure requirements for deploying a self-hosted Matrix server with LiveKit for A/V calls.
+This document outlines the infrastructure requirements for deploying the messenger microservice (self-hosted Matrix server with LiveKit for A/V calls) integrated into the microservices infrastructure.
+
+**Note**: This microservice is deployed via nginx-microservice, which handles reverse proxy, SSL termination, and routing. Ports and network configuration are managed by nginx-microservice.
 
 ## Server Requirements
 
@@ -49,9 +51,9 @@ Ensure these ports are open in:
 
 Required DNS A records:
 
-- `matrix.example.com` → Server IP
-- `element.example.com` → Server IP
-- `livekit.example.com` → Server IP
+- `messenger.statex.cz` → Server IP (single domain for all services)
+
+**Note**: All services (Synapse, Element, LiveKit) are accessed via the same domain `messenger.statex.cz`. Routing is handled by nginx-microservice based on URL paths.
 
 ## Infrastructure Assessment Checklist
 
