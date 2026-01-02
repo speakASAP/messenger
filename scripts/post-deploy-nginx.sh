@@ -113,6 +113,8 @@ PYEOF
 
 # Inject into both blue and green configs using the ACTIVE color
 # Both configs should point to the active color containers
+echo "Injecting Matrix location blocks using active color: $ACTIVE_COLOR"
+
 if [ -f "$BLUE_CONFIG" ]; then
     inject_matrix_locations "$BLUE_CONFIG" "$ACTIVE_COLOR"
 fi
