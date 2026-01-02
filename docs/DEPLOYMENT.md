@@ -69,9 +69,29 @@ Or use the helper script:
 
 ### 4. Deploy via nginx-microservice
 
+**Recommended: Use the wrapper script** (automatically handles Matrix location blocks):
+
+```bash
+cd /home/statex/messenger
+./scripts/deploy.sh
+```
+
+This wrapper script will:
+- Deploy via nginx-microservice
+- Automatically inject Matrix location blocks from `nginx/gateway-proxy.conf`
+- Reload nginx to apply changes
+
+**Alternative: Manual deployment** (if you need more control):
+
 ```bash
 cd /path/to/nginx-microservice
 ./scripts/blue-green/deploy-smart.sh messenger
+
+# Then manually inject Matrix location blocks
+cd /home/statex/messenger
+./scripts/post-deploy-nginx.sh
+cd /path/to/nginx-microservice
+./scripts/reload-nginx.sh
 ```
 
 The deployment script will:
@@ -83,6 +103,8 @@ The deployment script will:
 - Handle SSL certificates automatically
 - Perform health checks
 - Switch traffic with zero downtime
+
+**Note**: The `nginx/gateway-proxy.conf` file contains Matrix-specific location blocks (`/_matrix`, `/_synapse`, `/.well-known/matrix/client`) that are automatically injected into the nginx gateway configs during deployment. This ensures Matrix API requests are properly routed to Synapse.
 
 ### 5. Initialize Synapse
 
@@ -252,9 +274,9 @@ nano .env
 # Run setup script
 ./scripts/setup-config.sh
 
-# Redeploy
-cd /path/to/nginx-microservice
-./scripts/blue-green/deploy-smart.sh messenger
+# Redeploy (automatically handles Matrix location blocks)
+cd /home/statex/messenger
+./scripts/deploy.sh
 ```
 
 The blue/green deployment system ensures zero-downtime updates.

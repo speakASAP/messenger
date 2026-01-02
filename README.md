@@ -100,15 +100,29 @@ This will update:
 
 This service is deployed using the nginx-microservice blue/green deployment system:
 
+**Recommended: Use the wrapper script** (automatically handles Matrix location blocks):
+
+```bash
+cd /home/statex/messenger
+./scripts/deploy.sh
+```
+
+**Alternative: Manual deployment**:
+
 ```bash
 cd /path/to/nginx-microservice
 ./scripts/blue-green/deploy-smart.sh messenger
+cd /home/statex/messenger
+./scripts/post-deploy-nginx.sh
+cd /path/to/nginx-microservice
+./scripts/reload-nginx.sh
 ```
 
 The deployment script will:
 - Auto-create service registry
 - Build and start containers
 - Configure nginx routing
+- Automatically inject Matrix location blocks from `nginx/gateway-proxy.conf`
 - Handle SSL certificates
 - Perform health checks
 - Switch traffic with zero downtime
