@@ -283,7 +283,7 @@ docker exec -it ${SERVICE_NAME:-messenger}-synapse python -m synapse.app.homeser
 Configure the integration in Synapse config and restart:
 
 ```bash
-docker-compose restart synapse
+docker compose restart synapse
 ```
 
 ### 9. Create First User
@@ -379,26 +379,39 @@ See [docs/LOGGING.md](docs/LOGGING.md) for detailed logging information.
 
 ### A/V Calls Not Working
 
-1. Check LiveKit server accessibility:
+1. **Fix "Call is not supported" / "MISSING_MATRIX_RTC_FOCUS" error:**
+
+   ```bash
+   ./scripts/fix-rtc-config.sh
+   ```
+
+   This script will:
+   - Verify required environment variables (LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET)
+   - Install matrix-livekit-integration module if needed
+   - Regenerate homeserver.yaml with RTC focus configuration
+   - Restart Synapse to apply changes
+
+2. Check LiveKit server accessibility:
 
    ```bash
    ./scripts/test-livekit-server.sh
    ```
 
-2. Verify firewall rules for UDP ports (configured in nginx-microservice):
+3. Verify firewall rules for UDP ports (configured in nginx-microservice):
    - 7882 (TURN/STUN)
    - 50000-60000 (RTC)
 
-3. Check LiveKit logs:
+4. Check LiveKit logs:
 
    ```bash
    docker logs ${SERVICE_NAME:-messenger}-livekit
    ```
 
-4. Verify LiveKit integration in Synapse:
+5. Verify LiveKit integration in Synapse:
 
    ```bash
    docker logs ${SERVICE_NAME:-messenger}-synapse | grep -i livekit
+   docker logs ${SERVICE_NAME:-messenger}-synapse | grep -i rtc
    ```
 
 ### SSL Certificate Issues

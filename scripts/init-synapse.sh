@@ -19,7 +19,7 @@ source .env
 # Check if synapse container is running
 if ! docker ps | grep -q matrix-synapse; then
     echo "Starting Synapse container..."
-    docker-compose up -d synapse
+    docker compose up -d synapse
     sleep 5
 fi
 
@@ -41,6 +41,6 @@ echo ""
 echo "Next steps:"
 echo "1. Review synapse/config/homeserver.yaml"
 echo "2. Update database configuration if needed"
-echo "3. Restart Synapse: docker-compose restart synapse"
+echo "3. Restart Synapse: docker compose restart synapse"
 echo "4. Create first user: docker exec -it matrix-synapse register_new_matrix_user -c /data/homeserver.yaml -a -u admin -p <password> http://localhost:3708"
 

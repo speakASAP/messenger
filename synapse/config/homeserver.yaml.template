@@ -97,5 +97,11 @@ experimental_features:
   msc3266_local_private_read_receipts: true
   msc3882_simple_push_rules: true
 
-# LiveKit integration (will be configured via integration module)
-# The Matrix LiveKit integration module will handle this configuration
+# Matrix RTC (Real-Time Communication) configuration
+# Required for Element Call and LiveKit integration
+# NOTE: Values replaced from .env using envsubst
+matrix_rtc_focus:
+  focus:
+    uri: "${LIVEKIT_URL}"
+    api_key: "${LIVEKIT_API_KEY}"
+    api_secret: "${LIVEKIT_API_SECRET}"

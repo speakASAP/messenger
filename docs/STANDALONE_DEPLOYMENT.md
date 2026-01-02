@@ -424,7 +424,7 @@ docker run --rm -v messenger_certbot-conf:/data -v $(pwd):/backup alpine tar xzf
 |---------|-----------|--------------|
 | Nginx | Included in compose | External (nginx-microservice) |
 | SSL | Certbot container | Handled by nginx-microservice |
-| Deployment | Direct docker-compose | Blue/green via nginx-microservice |
+| Deployment | Direct docker compose | Blue/green via nginx-microservice |
 | Network | Internal Docker network | External network (nginx-network) |
 | Updates | Manual restart | Zero-downtime blue/green |
 | Configuration | All in codebase | Split between codebase and nginx-microservice |
