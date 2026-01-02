@@ -23,6 +23,14 @@ DOMAIN="${DOMAIN:-messenger.statex.cz}"
 
 echo "🚀 Starting deployment for $SERVICE_NAME..."
 
+# Step 0: Pull latest changes from repository
+echo "📥 Pulling latest changes from repository..."
+cd "$PROJECT_ROOT"
+if ! git pull; then
+    echo "⚠️  Warning: Failed to pull latest changes, continuing with current code"
+    echo "   You may be deploying outdated code"
+fi
+
 # Step 1: Deploy via nginx-microservice
 echo "📦 Deploying via nginx-microservice..."
 cd "$NGINX_MICROSERVICE_DIR"
