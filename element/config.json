@@ -55,9 +55,5 @@
   ],
   "sentry": {
     "dsn": "https://a7e8d0f8c5e24c8f8c5e24c8f8c5e24c8@sentry.io/1234567"
-  },
-  "posthog": {
-    "api_key": "phc_posthog_api_key",
-    "api_host": "https://posthog.element.io"
   }
 }
