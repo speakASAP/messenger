@@ -23,13 +23,16 @@ DOMAIN="${DOMAIN:-messenger.statex.cz}"
 
 echo "🚀 Starting deployment for $SERVICE_NAME..."
 
-# Step 0: Pull latest changes from repository
-echo "📥 Pulling latest changes from repository..."
+# Step 0: Deploy only code from repository - sync with remote (discard local changes on server)
+echo "📥 Syncing with remote repository..."
 cd "$PROJECT_ROOT"
-if ! git pull; then
-    echo "⚠️  Warning: Failed to pull latest changes, continuing with current code"
-    echo "   You may be deploying outdated code"
+if [ -d ".git" ]; then
+    git fetch origin
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    git reset --hard "origin/$BRANCH"
+    echo "✓ Repository synced to origin/$BRANCH"
 fi
+echo ""
 
 # Step 1: Deploy via nginx-microservice
 echo "📦 Deploying via nginx-microservice..."

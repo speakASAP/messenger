@@ -52,7 +52,7 @@ To ensure consistency:
 ### Matrix Domain Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `DOMAIN` | ✅ Yes | - | Your Matrix domain (e.g., `messenger.statex.cz`). Must match DNS A record. |
 | `ELEMENT_BASE_URL` | ✅ Yes | - | Element web client URL (usually same as `DOMAIN`). |
 | `LIVEKIT_URL` | ✅ Yes | - | LiveKit server URL (usually same as `DOMAIN` for standalone, or separate subdomain). |
@@ -61,14 +61,14 @@ To ensure consistency:
 ### Service Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `SERVICE_NAME` | ⚠️ Optional | `messenger` | Service name used for container naming. |
 | `PRODUCTION_PATH` | ⚠️ Optional | `/home/statex/messenger` | Path where service is deployed (for microservice deployment). |
 
 ### PostgreSQL Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `POSTGRES_USER` | ⚠️ Optional | `synapse` | PostgreSQL database user. |
 | `POSTGRES_DB` | ⚠️ Optional | `synapse` | PostgreSQL database name. |
 | `POSTGRES_PASSWORD` | ✅ Yes | - | PostgreSQL password. **Generate with:** `openssl rand -base64 32` |
@@ -77,7 +77,7 @@ To ensure consistency:
 ### Synapse Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `SYNAPSE_PORT` | ⚠️ Optional | `3708` | Synapse Matrix server port (internal, not exposed to host in production). |
 | `SYNAPSE_SECRET_KEY` | ✅ Yes | - | Synapse secret key. **Generate with:** `openssl rand -base64 32` |
 | `SYNAPSE_REGISTRATION_SECRET` | ✅ Yes | - | Synapse registration secret (used for user registration). **Generate with:** `openssl rand -base64 32` |
@@ -85,14 +85,14 @@ To ensure consistency:
 ### Redis Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `REDIS_PORT` | ⚠️ Optional | `6379` | Redis port (internal, not exposed to host in production). |
 | `REDIS_PASSWORD` | ✅ Yes | - | Redis password. **Generate with:** `openssl rand -base64 32` |
 
 ### LiveKit Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `LIVEKIT_API_KEY` | ✅ Yes | - | LiveKit API key. **Generate with:** `openssl rand -hex 16` |
 | `LIVEKIT_API_SECRET` | ✅ Yes | - | LiveKit API secret. **Generate with:** `openssl rand -base64 32` |
 | `LIVEKIT_HTTP_PORT` | ⚠️ Optional | `7880` | LiveKit HTTP API port (internal). |
@@ -105,20 +105,20 @@ To ensure consistency:
 ### Element Web Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `ELEMENT_PORT` | ⚠️ Optional | `80` | Element web client port (internal). |
 | `ELEMENT_WEB_PORT` | ⚠️ Optional | `80` | Element web port (legacy/alias, same as `ELEMENT_PORT`). |
 
 ### Docker Network Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `NETWORK_NAME` | ⚠️ Optional | `nginx-network` | Docker network name. For microservice: `nginx-network` (external). For standalone: `messenger-network` (internal, auto-created). |
 
 ### Timezone Configuration
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `TZ` | ⚠️ Optional | `UTC` | Timezone for containers (use UTC for consistency). |
 
 ### Container User Configuration (Security)
@@ -126,7 +126,7 @@ To ensure consistency:
 **IMPORTANT**: All containers run as non-root users for security. These variables MUST be set and MUST NOT be 0 (root).
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `CONTAINER_USER_UID` | ✅ Yes | - | User ID for running containers as non-root. **MUST NOT be 0/root.** Detect with: `./scripts/detect-user.sh` or `id -u` |
 | `CONTAINER_USER_GID` | ✅ Yes | - | Group ID for running containers as non-root. **MUST NOT be 0/root.** Detect with: `./scripts/detect-user.sh` or `id -g` |
 | `CURRENT_UID` | ⚠️ Optional | - | Current UID (alias for `CONTAINER_USER_UID`, used in some compose files). Auto-set by `setup-config.sh`. |
@@ -135,7 +135,7 @@ To ensure consistency:
 ### Let's Encrypt Configuration (Standalone Deployment Only)
 
 | Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
+| -------- | -------- | ------- | ----------- |
 | `LETSENCRYPT_EMAIL` | ✅ Yes (Standalone) | - | Email for Let's Encrypt certificate notifications. Required for standalone deployment with automatic SSL. |
 
 ## Generating Secrets

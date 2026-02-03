@@ -421,7 +421,7 @@ docker run --rm -v messenger_certbot-conf:/data -v $(pwd):/backup alpine tar xzf
 ## Differences from Microservice Deployment
 
 | Feature | Standalone | Microservice |
-|---------|-----------|--------------|
+| ------- | --------- | ------------ |
 | Nginx | Included in compose | External (nginx-microservice) |
 | SSL | Certbot container | Handled by nginx-microservice |
 | Deployment | Direct docker compose | Blue/green via nginx-microservice |
