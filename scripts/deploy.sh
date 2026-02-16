@@ -23,14 +23,31 @@ DOMAIN="${DOMAIN:-messenger.statex.cz}"
 
 echo "🚀 Starting deployment for $SERVICE_NAME..."
 
+# Load NODE_ENV from .env file to determine environment
+NODE_ENV="${NODE_ENV:-}"
+if [ -z "$NODE_ENV" ] && [ -f "$PROJECT_ROOT/.env" ]; then
+    set -a
+    # shellcheck source=/dev/null
+    source "$PROJECT_ROOT/.env" 2>/dev/null || true
+    set +a
+    NODE_ENV="${NODE_ENV:-}"
+fi
+
 # Step 0: Deploy only code from repository - sync with remote (discard local changes on server)
-echo "📥 Syncing with remote repository..."
+# Only sync if NODE_ENV is set to "production"
 cd "$PROJECT_ROOT"
 if [ -d ".git" ]; then
-    git fetch origin
-    BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    git reset --hard "origin/$BRANCH"
-    echo "✓ Repository synced to origin/$BRANCH"
+    if [ "$NODE_ENV" = "production" ]; then
+        echo "📥 Production environment detected (NODE_ENV=production)"
+        echo "📥 Syncing with remote repository (discarding local changes)..."
+        git fetch origin
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        git reset --hard "origin/$BRANCH"
+        echo "✓ Repository synced to origin/$BRANCH"
+    else
+        echo "⚠️  Development environment detected (NODE_ENV=${NODE_ENV:-not set})"
+        echo "⚠️  Skipping git sync - local changes will be preserved"
+    fi
 fi
 echo ""
 
