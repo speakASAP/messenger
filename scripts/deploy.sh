@@ -19,6 +19,7 @@ fi
 
 # Default values
 SERVICE_NAME="${SERVICE_NAME:-messenger}"
+DISPLAY_NAME="$(echo "${SERVICE_NAME:0:1}" | tr 'a-z' 'A-Z')${SERVICE_NAME:1}"
 DOMAIN="${DOMAIN:-messenger.statex.cz}"
 
 echo "🚀 Starting deployment for $SERVICE_NAME..."
@@ -55,7 +56,7 @@ echo ""
 echo "📦 Deploying via nginx-microservice..."
 cd "$NGINX_MICROSERVICE_DIR"
 if ! ./scripts/blue-green/deploy-smart.sh "$SERVICE_NAME"; then
-    echo "❌ Deployment failed!"
+    echo "❌ ${DISPLAY_NAME} deployment failed!"
     exit 1
 fi
 
@@ -83,7 +84,7 @@ else
     echo "⚠️  Warning: post-deploy-nginx.sh not found, skipping Matrix location block injection"
 fi
 
-echo "✅ Deployment completed successfully!"
+echo "✅ ${DISPLAY_NAME} deployment completed successfully!"
 echo ""
 echo "📋 Summary:"
 echo "   - Service: $SERVICE_NAME"
