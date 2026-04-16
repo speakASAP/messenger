@@ -9,7 +9,7 @@ Read this repo's `BUSINESS.md` → `SYSTEM.md` → `AGENTS.md` → `TASKS.md` �
 ## messenger
 
 **Purpose**: Self-hosted Matrix messaging (Synapse) + Element X web client + LiveKit SFU for A/V calls. Internal team communication only.  
-**Domain**: https://messenger.statex.cz  
+**Domain**: https://messenger.alfares.cz  
 **Stack**: Synapse Matrix homeserver · Element X · LiveKit SFU · TURN server · PostgreSQL · Docker
 
 ### Key constraints

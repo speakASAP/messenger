@@ -51,9 +51,9 @@ Ensure these ports are open in:
 
 Required DNS A records:
 
-- `messenger.statex.cz` → Server IP (single domain for all services)
+- `messenger.alfares.cz` → Server IP (single domain for all services)
 
-**Note**: All services (Synapse, Element, LiveKit) are accessed via the same domain `messenger.statex.cz`. Routing is handled by nginx-microservice based on URL paths.
+**Note**: All services (Synapse, Element, LiveKit) are accessed via the same domain `messenger.alfares.cz`. Routing is handled by nginx-microservice based on URL paths.
 
 ## Infrastructure Assessment Checklist
 

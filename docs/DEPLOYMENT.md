@@ -26,7 +26,7 @@ The messenger microservice provides a complete Matrix messaging environment with
 3. All environment variables must be configured in `.env` file
 4. Access to production server via SSH (`ssh statex`)
 5. Docker and Docker Compose installed
-6. Domain name configured in DNS: `messenger.statex.cz`
+6. Domain name configured in DNS: `messenger.alfares.cz`
 
 ## Deployment Steps
 
@@ -49,7 +49,7 @@ nano .env
 
 **Required .env variables:**
 
-- `DOMAIN=messenger.statex.cz` - Your Matrix domain
+- `DOMAIN=messenger.alfares.cz` - Your Matrix domain
 - `SERVICE_NAME=messenger` - Service name for container naming
 - `PRODUCTION_PATH=/home/statex/messenger` - Production deployment path
 - `CONTAINER_USER_UID` - User ID for all containers (MUST NOT be 0/root)
@@ -156,7 +156,7 @@ docker exec -it messenger-synapse python -m synapse.app.homeserver \
     --config-path /data/homeserver.yaml \
     --generate-config \
     --report-stats=no \
-    --server-name="messenger.statex.cz"
+    --server-name="messenger.alfares.cz"
 
 docker exec -it messenger-synapse python -m synapse.app.homeserver \
     --config-path /data/homeserver.yaml \
@@ -185,7 +185,7 @@ The service registry is automatically created by `deploy-smart.sh` in `nginx-mic
 {
   "service_name": "messenger",
   "production_path": "/home/statex/messenger",
-  "domain": "messenger.statex.cz",
+  "domain": "messenger.alfares.cz",
   "docker_compose_file": "docker-compose.green.yml",
   "docker_project_base": "messenger",
   "services": {
@@ -215,7 +215,7 @@ The service registry is automatically created by `deploy-smart.sh` in `nginx-mic
     }
   },
   "domains": {
-    "messenger.statex.cz": {
+    "messenger.alfares.cz": {
       "active_color": "green",
       "services": ["synapse", "frontend", "livekit"]
     }
@@ -274,14 +274,14 @@ All ports are configured via `.env` file:
    ```bash
    cd /home/statex/nginx-microservice
    ls -la nginx/conf.d/blue-green/ | grep messenger
-   cat nginx/conf.d/blue-green/messenger.statex.cz.green.conf
+   cat nginx/conf.d/blue-green/messenger.alfares.cz.green.conf
    ```
 
 4. Verify Matrix location blocks were injected:
 
    ```bash
    cd /home/statex/nginx-microservice
-   grep -A 5 "_matrix" nginx/conf.d/blue-green/messenger.statex.cz.green.conf
+   grep -A 5 "_matrix" nginx/conf.d/blue-green/messenger.alfares.cz.green.conf
    ```
 
 ### Health Check Failures
@@ -341,7 +341,7 @@ If Matrix API endpoints are not working:
 
    ```bash
    cd /home/statex/nginx-microservice
-   grep "_matrix" nginx/conf.d/blue-green/messenger.statex.cz.*.conf
+   grep "_matrix" nginx/conf.d/blue-green/messenger.alfares.cz.*.conf
    ```
 
 4. Manually inject if needed:

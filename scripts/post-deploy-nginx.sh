@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 NGINX_MICROSERVICE_DIR="${NGINX_MICROSERVICE_DIR:-/home/statex/nginx-microservice}"
 SERVICE_NAME="${SERVICE_NAME:-messenger}"
-DOMAIN="${DOMAIN:-messenger.statex.cz}"
+DOMAIN="${DOMAIN:-messenger.alfares.cz}"
 
 # Colors for output
 CUSTOM_LOCATIONS_FILE="$PROJECT_ROOT/nginx/gateway-proxy.conf"

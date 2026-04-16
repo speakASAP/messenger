@@ -53,7 +53,7 @@ To ensure consistency:
 
 | Variable | Required | Default | Description |
 | -------- | -------- | ------- | ----------- |
-| `DOMAIN` | ✅ Yes | - | Your Matrix domain (e.g., `messenger.statex.cz`). Must match DNS A record. |
+| `DOMAIN` | ✅ Yes | - | Your Matrix domain (e.g., `messenger.alfares.cz`). Must match DNS A record. |
 | `ELEMENT_BASE_URL` | ✅ Yes | - | Element web client URL (usually same as `DOMAIN`). |
 | `LIVEKIT_URL` | ✅ Yes | - | LiveKit server URL (usually same as `DOMAIN` for standalone, or separate subdomain). |
 | `IDENTITY_SERVER_URL` | ⚠️ Optional | `https://vector.im` | Identity server URL for identity verification. |

@@ -16,7 +16,7 @@ if [ -f "$PROJECT_ROOT/.env" ]; then
 fi
 
 SERVICE_NAME="${SERVICE_NAME:-messenger}"
-DOMAIN="${DOMAIN:-messenger.statex.cz}"
+DOMAIN="${DOMAIN:-messenger.alfares.cz}"
 LETSENCRYPT_EMAIL="${LETSENCRYPT_EMAIL:-admin@${DOMAIN}}"
 
 echo "🚀 Starting standalone deployment for $SERVICE_NAME..."

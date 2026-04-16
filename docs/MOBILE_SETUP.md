@@ -1,10 +1,10 @@
 # Mobile Client Setup Guide
 
-This guide explains how to connect Element X mobile apps to the messenger microservice (self-hosted Matrix server) at `messenger.statex.cz`.
+This guide explains how to connect Element X mobile apps to the messenger microservice (self-hosted Matrix server) at `messenger.alfares.cz`.
 
 ## Prerequisites
 
-- Matrix server running at `https://messenger.statex.cz`
+- Matrix server running at `https://messenger.alfares.cz`
 - A user account created on the server (see [Creating First User](#creating-first-user))
 - Mobile device (iOS or Android)
 
@@ -38,7 +38,7 @@ Launch the Element X app on your mobile device.
 
 1. On the welcome/login screen, look for **"Change"** or **"Edit"** next to the server URL
 2. Tap on it to open server configuration
-3. Enter your server URL: `https://messenger.statex.cz`
+3. Enter your server URL: `https://messenger.alfares.cz`
 4. Tap **"Continue"** or **"Next"**
 
 **Note**: If you don't see a server configuration option:
@@ -48,7 +48,7 @@ Launch the Element X app on your mobile device.
 
 ### Step 3: Sign In
 
-1. Enter your Matrix username (format: `@username:messenger.statex.cz`)
+1. Enter your Matrix username (format: `@username:messenger.alfares.cz`)
 2. Enter your password
 3. Tap **"Sign in"**
 
@@ -92,13 +92,13 @@ After signing in, you should see:
 1. **Check server accessibility**:
 
    ```bash
-   curl https://messenger.statex.cz/_matrix/client/versions
+   curl https://messenger.alfares.cz/_matrix/client/versions
    ```
 
    Should return JSON with Matrix API versions.
 
 2. **Verify SSL certificate**:
-   - Open `https://messenger.statex.cz` in mobile browser
+   - Open `https://messenger.alfares.cz` in mobile browser
    - Check that SSL certificate is valid (no warnings)
 
 3. **Check firewall**:
@@ -107,10 +107,10 @@ After signing in, you should see:
 
 ### "Server not found" Error
 
-- Verify the server URL is exactly: `https://messenger.statex.cz`
+- Verify the server URL is exactly: `https://messenger.alfares.cz`
 - Check that `.well-known` files are accessible:
-  - `https://messenger.statex.cz/.well-known/matrix/server`
-  - `https://messenger.statex.cz/.well-known/matrix/client`
+  - `https://messenger.alfares.cz/.well-known/matrix/server`
+  - `https://messenger.alfares.cz/.well-known/matrix/client`
 
 ### A/V Calls Not Working
 
@@ -126,7 +126,7 @@ After signing in, you should see:
 
 3. **Check Element X config**:
    - Verify `element_call` configuration in `element/config.json`
-   - Should have: `"element_call": { "url": "https://messenger.statex.cz" }`
+   - Should have: `"element_call": { "url": "https://messenger.alfares.cz" }`
 
 ## Features Available on Mobile
 
@@ -143,7 +143,7 @@ Once connected, you'll have access to:
 
 - **Element X Documentation**: <https://element.io/help>
 - **Matrix Specification**: <https://spec.matrix.org/>
-- **Server Status**: Check `https://messenger.statex.cz/_matrix/client/versions`
+- **Server Status**: Check `https://messenger.alfares.cz/_matrix/client/versions`
 
 ## Support
 
@@ -167,5 +167,5 @@ If you encounter issues:
 3. Check Matrix server status:
 
    ```bash
-   curl https://messenger.statex.cz/_matrix/client/versions
+   curl https://messenger.alfares.cz/_matrix/client/versions
    ```

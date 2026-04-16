@@ -18,5 +18,5 @@ Internal team only.
 
 ## SLA
 
-- Production: <https://messenger.statex.cz>
+- Production: <https://messenger.alfares.cz>
 - Matrix federation enabled

@@ -154,7 +154,7 @@ This will output the values to add to your `.env` file. Alternatively, run `id` 
 
 Set up DNS A record pointing to your server IP:
 
-- `messenger.statex.cz` → Your server IP
+- `messenger.alfares.cz` → Your server IP
 
 **Note**: SSL certificates and reverse proxy are handled by nginx-microservice. No need to configure nginx or certbot in this service.
 
@@ -296,7 +296,7 @@ docker exec -it ${SERVICE_NAME:-messenger}-synapse register_new_matrix_user \
 
 ### 11. Test A/V Calls
 
-1. Access Element X web client at `https://messenger.statex.cz`
+1. Access Element X web client at `https://messenger.alfares.cz`
 2. Log in with your admin account
 3. Start a call with another user
 4. Test group calls with 3+ participants
@@ -307,18 +307,18 @@ docker exec -it ${SERVICE_NAME:-messenger}-synapse register_new_matrix_user \
 
 1. Download Element X from App Store/Play Store
 2. Open app settings
-3. Configure custom server URL: `https://messenger.statex.cz`
+3. Configure custom server URL: `https://messenger.alfares.cz`
 4. A/V calls will automatically use LiveKit via Matrix integration
 
 ### Desktop (Windows/macOS/Linux)
 
 1. Download Element X desktop app
-2. Configure custom server URL: `https://messenger.statex.cz`
+2. Configure custom server URL: `https://messenger.alfares.cz`
 3. A/V calls will automatically use LiveKit via Matrix integration
 
 ### Web
 
-1. Access `https://messenger.statex.cz`
+1. Access `https://messenger.alfares.cz`
 2. Log in with your account
 3. WebRTC calls work in modern browsers via LiveKit
 
@@ -519,7 +519,7 @@ cd /home/statex/messenger
 The script reads from `.env` file:
 
 - `SERVICE_NAME` - Service name (default: `messenger`)
-- `DOMAIN` - Domain name (default: `messenger.statex.cz`)
+- `DOMAIN` - Domain name (default: `messenger.alfares.cz`)
 - `NGINX_MICROSERVICE_DIR` - Path to nginx-microservice (default: `/home/statex/nginx-microservice`)
 
 **What it does:**

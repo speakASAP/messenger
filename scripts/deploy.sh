@@ -20,7 +20,7 @@ fi
 # Default values
 SERVICE_NAME="${SERVICE_NAME:-messenger}"
 DISPLAY_NAME="$(echo "${SERVICE_NAME:0:1}" | tr 'a-z' 'A-Z')${SERVICE_NAME:1}"
-DOMAIN="${DOMAIN:-messenger.statex.cz}"
+DOMAIN="${DOMAIN:-messenger.alfares.cz}"
 
 echo "🚀 Starting deployment for $SERVICE_NAME..."
 
